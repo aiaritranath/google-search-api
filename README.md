@@ -1,15 +1,49 @@
-"# google-search-api" 
-Security notes (read these)
-API_KEY=aritra is weak. Anyone who sees the URL can use your API. Since it's in a query string, it appears in browser history, Vercel logs, and Referer headers. For a public project, consider a longer random string like aritra_9f3k2....
+# 🔎 Google Search API
 
-Your Google key never leaves the server. It lives in Vercel env vars and is only used server-side — good.
+A private, JSON-based Google Search API built with Next.js and deployed on Vercel.
+It proxies Google Custom Search, returns clean JSON, and includes the API creator's details in every response.
 
-Rate limiting: add Upstash Redis + @upstash/ratelimit if you want to cap requests per IP. Free tier is plenty.
+**Creator:** [@its_aritra_nath](https://instagram.com/its_aritra_nath)  
+**Instagram:** [@its_aritra_nath](https://instagram.com/its_aritra_nath)
 
-Never commit .env.local — add it to .gitignore (Next.js does this by default).
+---
 
-Don't put NEXT_PUBLIC_ in front of any of these variables, or they'll be exposed to the browser.
+## 📖 Table of Contents
 
-About that failed URL fetch
-The fetch of google-search-api.versel.com/key=aritra&search=coffee failed because that hostname doesn't resolve — versel.com isn't Vercel's domain, and the path is missing the ?. Once you deploy with the code above, your live URL will be https://<your-project-name>.vercel.app/api/search?key=aritra&search=coffee, and it will respond with JSON.
+- [Features](#-features)
+- [Tech Stack](#-tech-stack)
+- [Project Structure](#-project-structure)
+- [Prerequisites](#-prerequisites)
+- [Local Setup](#-local-setup)
+- [Environment Variables](#-environment-variables)
+- [Getting Google API Credentials](#-getting-google-api-credentials)
+- [Running Locally](#-running-locally)
+- [API Usage](#-api-usage)
+- [Example Response](#-example-response)
+- [Deploy to Vercel](#-deploy-to-vercel)
+- [Security Notes](#-security-notes)
+- [License](#-license)
 
+---
+
+## ✨ Features
+
+- 🔐 **Private API key** – only requests with `key=aritra` (or a custom key) are allowed.
+- 📦 **JSON output** – clean, structured response with search results.
+- 👤 **Creator details** – every response includes the API owner's info.
+- 🌐 **CORS enabled** – can be called from any browser or frontend app.
+- ⚡ **Deployed on Vercel** – serverless, fast, and free.
+- 🔄 **Pagination** – supports `start` and `num` parameters.
+- 🛡️ **Server-side Google key** – your Google API key never reaches the client.
+
+---
+
+## 🧰 Tech Stack
+
+- [Next.js 14](https://nextjs.org/) (App Router)
+- [Vercel](https://vercel.com/) (hosting)
+- [Google Custom Search JSON API](https://developers.google.com/custom-search/v1/overview)
+
+---
+
+## 📁 Project Structure
